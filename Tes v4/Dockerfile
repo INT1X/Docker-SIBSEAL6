@@ -12,20 +12,16 @@ RUN go mod download
 # Copy semua file dari direktori proyek ke direktori kerja di dalam container
 COPY . .
 
+# Mendapatkan paket-paket yang diperlukan oleh aplikasi Go
+RUN go get github.com/go-redis/redis/v8
+RUN go get go.mongodb.org/mongo-driver/mongo
+RUN go get go.mongodb.org/mongo-driver/mongo/options
+
 # Build aplikasi Go
 RUN go build -o main .
 
 # Expose port 8080 untuk akses ke aplikasi HTTP
 EXPOSE 8080
 
-RUN apk update && apk --no-cache add bash curl
-
-ENV HELLO_MESSAGE="Hello, Universe!"
-ENV PORT=8080
-
-ENV MONGO_ADDR=mongo
-ENV MONGO_PORT=27017
-ENV REDIS_ADDR=redis
-ENV REDIS_PORT=6379
-
-# CMD ["./main"]
+# Menjalankan aplikasi saat container dimulai
+CMD ["./main"]
