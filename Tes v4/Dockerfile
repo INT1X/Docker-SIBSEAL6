@@ -28,6 +28,4 @@ ENV MONGO_PORT=27017
 ENV REDIS_ADDR=redis
 ENV REDIS_PORT=6379
 
-COPY main.go /app/main.go
-
-CMD ["./main"]
+# CMD ["./main"]
